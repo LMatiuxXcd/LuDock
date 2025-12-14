@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DiffReport",
+  "type": "object",
+  "properties": {
+    "changes": {
+      "$ref": "#/$defs/DiffChanges"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "status",
+    "changes"
+  ],
+  "$defs": {
+    "DiffChanges": {
+      "type": "object",
+      "properties": {
+        "added_instances": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "modified_instances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InstanceDiff"
+          }
+        },
+        "removed_instances": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "added_instances",
+        "removed_instances",
+        "modified_instances"
+      ]
+    },
+    "InstanceDiff": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "property_changes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/PropertyChange"
+          }
+        },
+        "spatial_change": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SpatialChange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "property_changes"
+      ]
+    },
+    "PropertyChange": {
+      "type": "object",
+      "properties": {
+        "new": {
+          "type": "string"
+        },
+        "old": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "old",
+        "new"
+      ]
+    },
+    "SpatialChange": {
+      "type": "object",
+      "properties": {
+        "displacement": {
+          "type": "number",
+          "format": "float"
+        },
+        "new_center": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Vec3Wrapper"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "old_center": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Vec3Wrapper"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "displacement"
+      ]
+    },
+    "Vec3Wrapper": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "format": "float"
+        },
+        "y": {
+          "type": "number",
+          "format": "float"
+        },
+        "z": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    }
+  }
+}

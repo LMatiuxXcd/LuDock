@@ -265,22 +265,13 @@ fn collect_parts(
             current_transform = Mat4::from_translation(pos.clone().into());
             found_cframe = true;
         } else {
-            // Default CFrame if missing? 
-            // If explicit CFrame is missing, check if it's just meant to be at 0,0,0
-            // But usually DSL specifies it.
-            // Let's print a warning if we found a Part but no position.
-            // eprintln!("Warning: Part {} has no CFrame/Position", instance.name);
+            // Default to Identity (0,0,0) if missing, consistent with Roblox defaults and Loader logic
+            current_transform = Mat4::IDENTITY;
+            found_cframe = true;
         }
 
         if found_cframe {
             parts.push((current_transform, size, color, shape));
-        } else {
-             // Try to render at identity if missing?
-             // Or maybe user didn't specify CFrame? 
-             // "CFrame = CFrame.new(0, 0, 0)" is common.
-             // If I failed to parse it, `found_cframe` is false.
-             // Debug print:
-             // println!("Debug: Part {} skipped (no CFrame)", instance.name);
         }
     }
 

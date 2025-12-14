@@ -10,12 +10,6 @@ LuDock is a headless CLI infrastructure for AI agents to develop Roblox projects
 - **Luau Analysis**: Integrates with `luau-analyze` for type checking.
 - **3D Renderer**: Generates `.png` feedback for agents using a pure software renderer (no GPU required).
 
-## What LuDock is NOT
-- Not a Roblox game engine
-- Not a replacement for Roblox Studio
-- Not a runtime for executing gameplay
-- Not a physics, networking, or animation simulator
-
 ## Installation
 
 ```bash

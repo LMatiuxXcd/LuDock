@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Instance",
+  "type": "object",
+  "properties": {
+    "center": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Vec3Wrapper"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
+      }
+    },
+    "class_name": {
+      "type": "string"
+    },
+    "full_path": {
+      "type": "string",
+      "default": ""
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "name": {
+      "type": "string"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/PropertyValue"
+      }
+    },
+    "world_bounds": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AabbWrapper"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "class_name",
+    "properties",
+    "children"
+  ],
+  "$defs": {
+    "AabbWrapper": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "$ref": "#/$defs/Vec3Wrapper"
+        },
+        "min": {
+          "$ref": "#/$defs/Vec3Wrapper"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
+    },
+    "CFrameWrapper": {
+      "type": "object",
+      "properties": {
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "float"
+          },
+          "maxItems": 12,
+          "minItems": 12
+        },
+        "position": {
+          "$ref": "#/$defs/Vec3Wrapper"
+        }
+      },
+      "required": [
+        "position",
+        "components"
+      ]
+    },
+    "Color3Wrapper": {
+      "type": "object",
+      "properties": {
+        "b": {
+          "type": "number",
+          "format": "float"
+        },
+        "g": {
+          "type": "number",
+          "format": "float"
+        },
+        "r": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "r",
+        "g",
+        "b"
+      ]
+    },
+    "PropertyValue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "$ref": "#/$defs/Vec3Wrapper"
+        },
+        {
+          "$ref": "#/$defs/CFrameWrapper"
+        },
+        {
+          "$ref": "#/$defs/Color3Wrapper"
+        },
+        {
+          "$ref": "#/$defs/UDim2Wrapper"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "UDim2Wrapper": {
+      "type": "object",
+      "properties": {
+        "xo": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "xs": {
+          "type": "number",
+          "format": "float"
+        },
+        "yo": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ys": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "xs",
+        "xo",
+        "ys",
+        "yo"
+      ]
+    },
+    "Vec3Wrapper": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "format": "float"
+        },
+        "y": {
+          "type": "number",
+          "format": "float"
+        },
+        "z": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
+    }
+  }
+}
